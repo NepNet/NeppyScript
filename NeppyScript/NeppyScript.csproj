@@ -6,7 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Lexer" />
 	  <Folder Include="Parser" />
 	</ItemGroup>
 
