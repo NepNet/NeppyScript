@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using NeppyScript.Lexer;
 
 namespace NeppyScript
 {
@@ -6,7 +8,12 @@ namespace NeppyScript
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			var tokens = new Tokenizer("main", File.ReadAllText(args[0])).Process();
+
+			foreach (var token in tokens)
+			{
+				Console.WriteLine(token);
+			}
 		}
 	}
 }
