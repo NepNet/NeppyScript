@@ -30,7 +30,23 @@ namespace NeppyScript.Lexer
 			
 			while (ReadNext(out char c))
 			{
-				if (char.IsWhiteSpace(c))
+				if (c is '/')
+				{
+					//Process comment if so
+					if (ReadNext(out c) && c is '/')
+					{
+						int start = _index;
+						while (ReadNext(out c) && c is not '\n') { }
+						_index--;
+						
+						int end = _index;
+
+						string value = _source.Substring(start, end - start);
+						
+						MakeToken(start, TokenType.Comment, value);
+					}
+				}
+				else if (char.IsWhiteSpace(c))
 				{
 					if (c is '\n')
 					{
@@ -40,7 +56,7 @@ namespace NeppyScript.Lexer
 					}
 					else
 					{
-						MakeToken(_index - lineStart, TokenType.Whitespace, c.ToString());
+						MakeToken(_index - lineStart - 1, TokenType.Whitespace, c.ToString());
 					}
 				}
 				else if (IsDigit(c))
