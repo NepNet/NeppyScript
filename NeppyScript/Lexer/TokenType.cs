@@ -30,6 +30,7 @@ namespace NeppyScript.Lexer
 		Subtraction,
 		Multiplication,
 		Division,
+		Power,
 		Modulo,
 		Greater,
 		Smaller,

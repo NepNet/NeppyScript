@@ -12,6 +12,10 @@ namespace NeppyScript
 
 			foreach (var token in tokens)
 			{
+				if (token.TokenType is TokenType.Whitespace or TokenType.Newline)
+				{
+					continue;
+				}
 				Console.WriteLine(token);
 			}
 		}
