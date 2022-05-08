@@ -92,6 +92,18 @@ namespace NeppyScript.Lexer
 					
 					tokens.Add(new Token(_file, line, start - lineStart, TokenType.IntegerLiteral, value));
 				}
+				else if (IsIdentifier(c))
+				{
+					int start = _index - 1;
+					while (ReadNext(out c) && IsIdentifier(c)) { }
+					_index--;
+					
+					int end = _index;
+
+					string value = _source.Substring(start, end - start);
+					
+					tokens.Add(new Token(_file, line, start - lineStart, TokenType.Identifier, value));
+				}
 			}
 			
 			return tokens.ToArray();
