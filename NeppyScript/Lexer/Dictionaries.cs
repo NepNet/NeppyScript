@@ -16,19 +16,54 @@ namespace NeppyScript.Lexer
 		private SortedList<string, TokenType> _shortTokens = new SortedList<string, TokenType>()
 #endif
 		{
+			//MATH
 			{"==", TokenType.Equal},
 			{"=", TokenType.Assignment},
 			{"++", TokenType.Increment},
 			{"--", TokenType.Decrement},
 			{"+", TokenType.Addition},
-			{"-", TokenType.Subtraction}
+			{"-", TokenType.Subtraction},
+			{"*", TokenType.Multiplication},
+			{"/", TokenType.Division},
+			{"^", TokenType.Power},
+			{"**", TokenType.Power},
+			{"%", TokenType.Modulo},
+			{">", TokenType.Greater},
+			{">=", TokenType.GreaterOrEqual},
+			{"<", TokenType.Smaller},
+			{"<=", TokenType.SmallerOrEqual},
+			{"+=", TokenType.AssignAddition},
+			{"-=", TokenType.AssignSubtraction},
+			{"*=", TokenType.AssignMultiplication},
+			{"/=", TokenType.AssignDivision},
+			
+			//BRACES AND STUFF
+			{"(", TokenType.OpenParenthesis},
+			{")", TokenType.CloseParenthesis},
+			{"[", TokenType.OpenBracket},
+			{"]", TokenType.CloseBracket},
+			{"{", TokenType.OpenBrace},
+			{"}", TokenType.CloseBrace},
+			
+			//Idk
+			{",", TokenType.Separator},
+			{";", TokenType.StatementEnd},
+			{"!", TokenType.Negation},
+			{"||", TokenType.LogicalOr},
+			{"&&", TokenType.LogicalAnd},
+			
+			//Bits
+			{"|", TokenType.BitwiseOr},
+			{"&", TokenType.BitwiseAnd},
+			{"<<", TokenType.ShiftLeft},
+			{">>", TokenType.ShiftRight},
+			{"~", TokenType.BitwiseInvert}
+			
 		};	
 		
 		private bool IsShortToken(char c, out TokenType tokenType)
 		{
-			
 #if DICTIONARYSHORTTOKENS
-			
 			PeekNext(out char c2);
 			if (_shortTokens.TryGetValue($"{c}{c2}", out tokenType))
 			{
@@ -39,7 +74,6 @@ namespace NeppyScript.Lexer
 			{
 				return true;
 			}
-			
 #else
 			for (int i = 0; i < _shortTokens.Count; i++)
 			{
@@ -61,9 +95,8 @@ namespace NeppyScript.Lexer
 
 				return true;
 			}
-
 #endif
-
+			
 			tokenType = TokenType.None;
 			return false;
 		}

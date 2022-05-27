@@ -18,9 +18,12 @@ namespace NeppyScript.Lexer
 		CharacterLiteral,
 
 		//Grouping stuff i guess
-		Parenthesis,		// ()
-		Bracket,			// []
-		Brace,				// {}
+		OpenParenthesis,		// (
+		CloseParenthesis,		// )
+		OpenBracket,			// [
+		CloseBracket,			// ]
+		OpenBrace,				// {
+		CloseBrace,				// }
 
 		//Flow control
 		If,
@@ -39,10 +42,25 @@ namespace NeppyScript.Lexer
 		GreaterOrEqual,
 		SmallerOrEqual,
 		Equal,
-		Negation,
 		Assignment,
+		AssignAddition,
+		AssignSubtraction,
+		AssignMultiplication,
+		AssignDivision,
 
 		Increment,
-		Decrement
+		Decrement,
+		
+		//Logic stuff I guess
+		LogicalOr,
+		LogicalAnd,
+		Negation,
+		
+		//Bit stuff???
+		BitwiseOr,
+		BitwiseAnd,
+		ShiftLeft,
+		ShiftRight,
+		BitwiseInvert,
 	}
 }
