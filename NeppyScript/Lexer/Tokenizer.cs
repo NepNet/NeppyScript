@@ -52,65 +52,9 @@ namespace NeppyScript.Lexer
 						MakeToken(_index - 1, TokenType.Division);
 					}
 				}
-				else if (c is '+')
+				else if(IsShortToken(c, out TokenType tokenType))
 				{
-					if (PeekNext(out char d) && d is '+')
-					{
-						MakeToken(_index, TokenType.Increment);
-						_index++;
-					}
-					else
-					{
-						MakeToken(_index, TokenType.Addition);
-					}
-				}
-				else if(c is '-')
-				{
-					if (PeekNext(out char d) && d is '-')
-					{
-						MakeToken(_index, TokenType.Decrement);
-						_index++;
-					}
-					else
-					{
-						MakeToken(_index, TokenType.Subtraction);
-					}
-				}
-				else if(c is '*')
-				{
-					if (PeekNext(out char d) && d is '*')
-					{
-						MakeToken(_index, TokenType.Power);
-						_index++;
-					}
-					else
-					{
-						MakeToken(_index, TokenType.Multiplication);
-					}
-				}
-				else if(c is '^')
-				{
-					MakeToken(_index, TokenType.Power);
-				}
-				else if(c is '%')
-				{
-					MakeToken(_index, TokenType.Modulo);
-				}
-				else if(c is '=')
-				{
-					if (PeekNext(out char d) && d is '=')
-					{
-						MakeToken(_index, TokenType.Equal);
-						_index++;
-					}
-					else
-					{
-						MakeToken(_index, TokenType.Assignment);
-					}
-				}
-				else if(c is ';')
-				{
-					MakeToken(_index, TokenType.StatementEnd);
+					MakeToken(_index - 1, tokenType);
 				}
 				else if (char.IsWhiteSpace(c))
 				{
@@ -118,11 +62,16 @@ namespace NeppyScript.Lexer
 					{
 						line++;
 						lineStart = _index;
+#if NEWLINE_TOKENS
+		
 						MakeToken(_index - lineStart, TokenType.Newline);
+#endif
 					}
 					else
 					{
+#if WHITESPACE_TOKENS
 						MakeToken(_index - lineStart - 1, TokenType.Whitespace, c.ToString());
+#endif
 					}
 				}
 				else if (IsDigit(c))

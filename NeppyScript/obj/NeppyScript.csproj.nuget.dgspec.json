@@ -52,7 +52,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.407/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/nepnet/.dotnet/sdk/5.0.210/RuntimeIdentifierGraph.json"
         }
       }
     }

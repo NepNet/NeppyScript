@@ -2,6 +2,8 @@ namespace NeppyScript.Lexer
 {
 	public enum TokenType
 	{
+		None, //Some stuff that is just for placeholding?
+
 		Newline,
 		Whitespace,
 		Comment,
