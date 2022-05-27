@@ -27,7 +27,6 @@ namespace NeppyScript.Lexer
 				var token = new Token(_file, line, start, type, value);
 				tokens.Add(token);
 			}
-			
 			while (ReadNext(out char c))
 			{
 				if (c is '/')
