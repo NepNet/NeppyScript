@@ -8,7 +8,10 @@ namespace NeppyScript
 	{
 		public static void Main(string[] args)
 		{
-			var tokens = new Tokenizer("main", File.ReadAllText(args[0])).Process();
+			var tokenizer = new Tokenizer("main", File.ReadAllText(args[0]));
+			tokenizer.Generate();
+			tokenizer.Clean();
+			var tokens = tokenizer.Tokens;
 			
 			foreach (var token in tokens)
 			{

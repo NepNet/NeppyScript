@@ -8,13 +8,18 @@ namespace NeppyScript.Lexer
 		private string _source;
 		private string _file;
 
+		public Token[] Tokens { get; private set; }
+		public int Length => Tokens.Length;
+		public Token this[int i] => Tokens[i];
+
 		public Tokenizer(string file, string source)
 		{
 			_source = source;
 			_file = file;
+			Tokens = new Token[0];
 		}
 
-		public Token[] Process()
+		public void Generate()
 		{
 			_index = 0;
 			int line = 0;
@@ -73,35 +78,12 @@ namespace NeppyScript.Lexer
 #endif
 					}
 				}
+				else if (c is '\'')
+				{
+					//Character literal	
+				}
 				else if (IsDigit(c))
 				{
-					/*
-					if (c is '0')
-					{
-						if (ReadNext(out c))
-						{
-							switch (c)
-							{
-								case 'x' or 'X':
-									//Parse as hex
-									Console.WriteLine("HEX");
-									break;
-								case 'b' or 'B':
-									//Parse as binary
-									Console.WriteLine("BIN");
-									break;
-								case 'o' or 'O':
-									//Parse as octal
-									Console.WriteLine("OCT");
-									break;
-								default:
-									Debug.ThrowError(this);
-									break;
-							}
-						}
-					}
-					*/
-					
 					//Parse decimal
 					int start = _index - 1;
 					while (ReadNext(out c))
@@ -139,8 +121,21 @@ namespace NeppyScript.Lexer
 					Debug.ThrowError(this);
 				}
 			}
-			
-			return tokens.ToArray();
+
+			Tokens = tokens.ToArray();
+		}
+
+		public void Clean()
+		{
+			foreach (var token in Tokens)
+			{
+				if (token.TokenType is not TokenType.Identifier) continue;
+				
+				if (_keywords.TryGetValue(token.Value, out var newType))
+				{
+					token.TokenType = newType;
+				}
+			}
 		}
 	}
 }

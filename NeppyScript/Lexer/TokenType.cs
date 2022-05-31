@@ -18,17 +18,23 @@ namespace NeppyScript.Lexer
 		CharacterLiteral,
 
 		//Grouping stuff i guess
-		OpenParenthesis,		// (
-		CloseParenthesis,		// )
-		OpenBracket,			// [
-		CloseBracket,			// ]
-		OpenBrace,				// {
-		CloseBrace,				// }
+		OpenParenthesis,			// (
+		CloseParenthesis,			// )
+		OpenBracket,				// [
+		CloseBracket,				// ]
+		OpenCurlyBracket,			// {
+		CloseCurlyBracket,			// }
 
 		//Flow control
 		If,
 		Else,
-		Switch,
+		//Switch,
+		
+		//Loop
+		While,
+		For,
+		Foreach,
+		Break,
 
 		//Math stuff
 		Addition,

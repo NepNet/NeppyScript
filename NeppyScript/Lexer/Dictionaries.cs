@@ -42,8 +42,8 @@ namespace NeppyScript.Lexer
 			{")", TokenType.CloseParenthesis},
 			{"[", TokenType.OpenBracket},
 			{"]", TokenType.CloseBracket},
-			{"{", TokenType.OpenBrace},
-			{"}", TokenType.CloseBrace},
+			{"{", TokenType.OpenCurlyBracket},
+			{"}", TokenType.CloseCurlyBracket},
 			
 			//Idk
 			{",", TokenType.Separator},
@@ -103,7 +103,13 @@ namespace NeppyScript.Lexer
 		
 		private Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>()
 		{
+			{"if", TokenType.If},
+			{"else", TokenType.Else},
 			
+			{"for", TokenType.For},
+			{"foreach", TokenType.Foreach},
+			{"while", TokenType.While},
+			{"break", TokenType.Break}
 		};
 	}
 }

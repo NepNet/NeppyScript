@@ -5,7 +5,7 @@ namespace NeppyScript.Lexer
 		public string File { get; }
 		public int Line { get; }
 		public int Start { get; }
-		public TokenType TokenType { get; }
+		public TokenType TokenType { get; set; }
 		public string Value { get; }
 
 		public Token(string file, int line, int start, TokenType tokenType, string value)
