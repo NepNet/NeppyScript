@@ -29,9 +29,10 @@ namespace NeppyScript.Lexer
 
 			void MakeToken(int start, TokenType type, string value = "")
 			{
-				var token = new Token(_file, line, start, type, value);
+				var token = new Token(_file, line, start - lineStart, type, value);
 				tokens.Add(token);
 			}
+			
 			while (ReadNext(out char c))
 			{
 				if (c is '/')
@@ -77,10 +78,42 @@ namespace NeppyScript.Lexer
 						MakeToken(_index - lineStart - 1, TokenType.Whitespace, c.ToString());
 #endif
 					}
-				}
+				}/*
+				//Character literal	
 				else if (c is '\'')
 				{
-					//Character literal	
+					int start = _index - 1;
+					if (ReadNext(out c))
+					{
+						if (ReadNext(out char end) && end is '\'')
+						{
+							MakeToken(start, TokenType.CharacterLiteral, c.ToString());
+						}
+						else
+						{
+							Debug.ThrowError(this);
+						}
+					}
+				}*/
+				//String literal
+				else if (c is '"')
+				{
+					int start = _index;
+					while (ReadNext(out c))
+					{
+						if (c is '"')
+						{
+							break;
+						}
+					}
+					int end = _index - 1;
+
+					if (c is not '"')
+					{
+						throw new Exception("Unmatched \"");
+					}
+					string value = _source.Substring(start, end - start);
+					MakeToken(start, TokenType.StringLiteral, value);
 				}
 				else if (IsDigit(c))
 				{
@@ -102,7 +135,7 @@ namespace NeppyScript.Lexer
 
 					string value = _source.Substring(start, end - start);
 					
-					tokens.Add(new Token(_file, line, start - lineStart, TokenType.IntegerLiteral, value));
+					MakeToken(start, TokenType.IntegerLiteral, value); 
 				}
 				else if (IsIdentifier(c))
 				{
@@ -113,8 +146,8 @@ namespace NeppyScript.Lexer
 					int end = _index;
 
 					string value = _source.Substring(start, end - start);
-					
-					tokens.Add(new Token(_file, line, start - lineStart, TokenType.Identifier, value));
+
+					MakeToken(start, TokenType.Identifier, value);
 				}
 				else
 				{
